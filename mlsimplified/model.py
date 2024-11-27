@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
+import joblib
 
 class Model:
     def __init__(self, data, target):
@@ -47,4 +48,12 @@ class Model:
         new_data = pd.read_csv(data) if isinstance(data, str) else data
         if self.target in new_data.columns:
             new_data = new_data.drop(columns=[self.target])
-        return self.model.predict(new_data) 
+        return self.model.predict(new_data)
+        
+    def export(self, path):
+        """Export the trained model to a file."""
+        if self.model is None:
+            raise ValueError("Model must be trained before export")
+            
+        joblib.dump(self.model, path)
+        return self 

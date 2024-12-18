@@ -5,6 +5,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import classification_report, confusion_matrix, mean_squared_error, r2_score
 from sklearn.utils.multiclass import type_of_target
+import matplotlib.pyplot as plt
+import seaborn as sns
 import joblib
 
 class Model:
@@ -16,6 +18,7 @@ class Model:
         self.y = None
         self.scaler = StandardScaler()
         self.is_classification = None
+        self.feature_importance = None
         
     def _prepare_data(self):
         """Prepare the data for training."""
@@ -48,6 +51,13 @@ class Model:
             self.model = RandomForestRegressor(random_state=random_state)
             
         self.model.fit(X_train, y_train)
+        
+        # Calculate feature importance
+        self.feature_importance = pd.DataFrame({
+            'feature': self.data.drop(columns=[self.target]).columns,
+            'importance': self.model.feature_importances_
+        }).sort_values('importance', ascending=False)
+        
         return self
         
     def evaluate(self):
@@ -89,4 +99,32 @@ class Model:
             raise ValueError("Model must be trained before export")
             
         joblib.dump(self.model, path)
-        return self 
+        return self
+        
+    def summary(self):
+        """Print a summary of the model."""
+        if self.model is None:
+            raise ValueError("Model must be trained before summary")
+            
+        print(f"Model Type: {'Classification' if self.is_classification else 'Regression'}")
+        print(f"Number of Features: {self.X.shape[1]}")
+        print("\nTop 5 Most Important Features:")
+        print(self.feature_importance.head())
+        
+        return self
+        
+    def plot(self):
+        """Plot feature importance."""
+        if self.feature_importance is None:
+            raise ValueError("Model must be trained before plotting")
+            
+        plt.figure(figsize=(10, 6))
+        sns.barplot(x='importance', y='feature', data=self.feature_importance.head(10))
+        plt.title('Top 10 Most Important Features')
+        plt.show()
+        
+        return self
+        
+    def report(self):
+        """Generate a detailed evaluation report."""
+        return self.evaluate() 

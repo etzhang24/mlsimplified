@@ -8,7 +8,7 @@ setup(
     version="0.1.0",
     author="Ethan Zhang",
     author_email="zhangethan@icloud.com",
-    description="A production-ready machine learning library for quick model training and prediction",
+    description="A machine learning library for quick and easy model training and prediction",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/etzhang24/mlsimplified",

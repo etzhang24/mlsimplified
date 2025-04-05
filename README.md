@@ -40,6 +40,8 @@ model = Model(train_data, target="target_column")
 
 # Train the model
 model.train()
+model.summary()
+model.report()
 
 # Create sample test data
 test_data = pd.DataFrame({

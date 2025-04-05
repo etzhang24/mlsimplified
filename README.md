@@ -11,12 +11,12 @@ pip install mlsimplified
 ## Features
 
 - Automatic problem type detection (classification/regression)
-- Smart data preprocessing and cleaning
-- Built-in model selection
-- One-line training and prediction
+- Smart data preprocessing + cleaning
+- Auto model selection
+- One line training and prediction
 - Automatic evaluation and reporting
-- Built-in visualization
-- Production-ready error handling
+- Visualization
+- Error handling
 - Efficient memory management
 
 ## Usage
@@ -26,6 +26,7 @@ pip install mlsimplified
 ```python
 import pandas as pd
 import numpy as np
+from mlsimplified import Model
 
 # Create sample training data
 train_data = pd.DataFrame({
@@ -58,6 +59,7 @@ model.export("model.pkl")
 ```python
 import pandas as pd
 import numpy as np
+from mlsimplified import Model
 
 # Create sample data with categorical and numerical features
 data = pd.DataFrame({

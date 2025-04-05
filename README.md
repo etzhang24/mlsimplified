@@ -8,25 +8,6 @@ A machine learning library that makes training and using ML models simple.
 pip install mlsimplified
 ```
 
-## Quick Start
-
-```python
-import pandas as pd
-import numpy as np
-
-# Create sample data
-data = pd.DataFrame({
-    'feature1': np.random.rand(100),
-    'feature2': np.random.rand(100),
-    'label': np.random.choice([0, 1], size=100)  # Binary classification example
-})
-
-# Create and train a model in one line
-from mlsimplified import Model
-model = Model(data, target="label")
-model.train().evaluate().summary()
-```
-
 ## Features
 
 - Automatic problem type detection (classification/regression)

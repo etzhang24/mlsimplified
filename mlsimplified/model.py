@@ -21,7 +21,7 @@ class Model:
         self.feature_importance = None
         
     def _prepare_data(self):
-        """Prepare the data for training."""
+        # prepping data to train
         # Separate features and target
         self.X = self.data.drop(columns=[self.target])
         self.y = self.data[self.target]
@@ -52,7 +52,7 @@ class Model:
             
         self.model.fit(X_train, y_train)
         
-        # Calculate feature importance
+        # figure out feature importance
         self.feature_importance = pd.DataFrame({
             'feature': self.data.drop(columns=[self.target]).columns,
             'importance': self.model.feature_importances_
@@ -78,8 +78,8 @@ class Model:
             y_pred = self.model.predict(X_test)
             mse = mean_squared_error(y_test, y_pred)
             r2 = r2_score(y_test, y_pred)
-            print(f"Mean Squared Error: {mse:.4f}")
-            print(f"R2 Score: {r2:.4f}")
+            print(f"MSE: {mse:.4f}")
+            print(f"R2: {r2:.4f}")
         return self
         
     def predict(self, data):
@@ -94,7 +94,7 @@ class Model:
         return self.model.predict(new_data)
         
     def export(self, path):
-        """Export the trained model to a file."""
+        # exporting
         if self.model is None:
             raise ValueError("Model must be trained before export")
             
@@ -102,7 +102,7 @@ class Model:
         return self
         
     def summary(self):
-        """Print a summary of the model."""
+        # printing
         if self.model is None:
             raise ValueError("Model must be trained before summary")
             
@@ -114,7 +114,7 @@ class Model:
         return self
         
     def plot(self):
-        """Plot feature importance."""
+        # plot
         if self.feature_importance is None:
             raise ValueError("Model must be trained before plotting")
             
@@ -126,5 +126,5 @@ class Model:
         return self
         
     def report(self):
-        """Generate a detailed evaluation report."""
+        # printing report
         return self.evaluate() 

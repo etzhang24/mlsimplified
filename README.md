@@ -41,8 +41,9 @@ test_data = pd.DataFrame({
 })
 
 
-'''the actual model'''
-# Initialize with the data
+"""The Actual Model"""
+
+# Initialize model
 model = Model(train_data, target="target_column")
 
 # Train the model

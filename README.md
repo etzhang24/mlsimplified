@@ -28,14 +28,21 @@ import pandas as pd
 import numpy as np
 from mlsimplified import Model
 
-# Create sample training data
+'''DATA'''
 train_data = pd.DataFrame({
     'feature1': np.random.normal(0, 1, 100),
     'feature2': np.random.normal(0, 1, 100),
     'target_column': np.random.rand(100)  # Regression example
 })
 
-# Initialize with your data
+test_data = pd.DataFrame({
+    'feature1': np.random.normal(0, 1, 20),
+    'feature2': np.random.normal(0, 1, 20),
+})
+
+
+'''the actual model'''
+# Initialize with the data
 model = Model(train_data, target="target_column")
 
 # Train the model
@@ -43,16 +50,10 @@ model.train()
 model.summary()
 model.report()
 
-# Create sample test data
-test_data = pd.DataFrame({
-    'feature1': np.random.normal(0, 1, 20),
-    'feature2': np.random.normal(0, 1, 20),
-})
-
 # Make predictions
 predictions = model.predict(test_data)
 
-# Export the model if needed
+# Export the model
 model.export("model.pkl")
 ```
 

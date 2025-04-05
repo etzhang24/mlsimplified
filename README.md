@@ -11,11 +11,20 @@ pip install mlsimplified
 ## Quick Start
 
 ```python
-from mlsimplified import Model
+import pandas as pd
+import numpy as np
+
+# Create sample data
+data = pd.DataFrame({
+    'feature1': np.random.rand(100),
+    'feature2': np.random.rand(100),
+    'label': np.random.choice([0, 1], size=100)  # Binary classification example
+})
 
 # Create and train a model in one line
-model = Model("data.csv", target="label")
-model.train().evaluate().predict("test.csv").export("model.pkl")
+from mlsimplified import Model
+model = Model(data, target="label")
+model.train().evaluate().summary()
 ```
 
 ## Features
@@ -34,28 +43,50 @@ model.train().evaluate().predict("test.csv").export("model.pkl")
 ### Basic Usage
 
 ```python
-from mlsimplified import Model
+import pandas as pd
+import numpy as np
+
+# Create sample training data
+train_data = pd.DataFrame({
+    'feature1': np.random.normal(0, 1, 100),
+    'feature2': np.random.normal(0, 1, 100),
+    'target_column': np.random.rand(100)  # Regression example
+})
 
 # Initialize with your data
-model = Model("your_data.csv", target="target_column")
+model = Model(train_data, target="target_column")
 
 # Train the model
 model.train()
 
-# Make predictions
-predictions = model.predict("new_data.csv")
+# Create sample test data
+test_data = pd.DataFrame({
+    'feature1': np.random.normal(0, 1, 20),
+    'feature2': np.random.normal(0, 1, 20),
+})
 
-# Export the model
+# Make predictions
+predictions = model.predict(test_data)
+
+# Export the model if needed
 model.export("model.pkl")
 ```
 
 ### Advanced Usage
 
 ```python
-from mlsimplified import Model
+import pandas as pd
+import numpy as np
+
+# Create sample data with categorical and numerical features
+data = pd.DataFrame({
+    'numeric_feature': np.random.normal(0, 1, 100),
+    'categorical_feature': np.random.choice(['A', 'B', 'C'], size=100),
+    'label': np.random.choice([0, 1], size=100)
+})
 
 # Initialize with custom parameters
-model = Model("data.csv", target="label")
+model = Model(data, target="label")
 
 # Train with custom test size
 model.train(test_size=0.3)
@@ -64,9 +95,6 @@ model.train(test_size=0.3)
 model.summary()  # View model information
 model.plot()     # Visualize feature importance
 model.report()   # Generate evaluation report
-
-# Chain operations
-model.train().evaluate().predict("test.csv").export("model.pkl")
 ```
 
 ## API Reference
